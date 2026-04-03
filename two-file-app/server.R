@@ -4,6 +4,11 @@ server <- function(input, output) {
   # filtered trout data ----
   trout_filtered_df <- reactive({
     
+    validate(
+      need(length(input$channel_type_input) > 0, "Please select at least one channel type to visualize data for."),
+      need(length(input$section_input) > 0, "Please select at least one section (clear cut forest or old growth forest) to visualize data.")
+    )
+    
     trout_filtered_df <- clean_trout |> 
       filter(channel_type %in% c(input$channel_type_input)) |>
       filter(section %in% c(input$section_input))
@@ -37,10 +42,20 @@ server <- function(input, output) {
       myCustomTheme()
     
     
-  })
+  },
+  
+  alt = "This is my trout plot alt text."
+  
+  )
   
   # filtered penguin data ----
-  penguins_filtered_df <- reactive({ penguins |> 
+  penguins_filtered_df <- reactive({ 
+    
+    validate(
+      need(length(input$penguin_island_input) > 0, "Please select at least one island to visualize data for.")
+    )
+    
+    penguins |> 
     filter(island %in% c(input$penguin_island_input))
     
   })
@@ -53,7 +68,11 @@ server <- function(input, output) {
       labs(x = "Flipper length (mm)", y = "Frequency",
            fill = "Penguin species") +
       myCustomTheme()
-  })
+  },
+  
+  alt = "This is my penguin alt text."
+  
+  )
   
 }
 

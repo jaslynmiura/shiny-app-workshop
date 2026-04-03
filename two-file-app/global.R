@@ -5,6 +5,7 @@ library(tidyverse)
 library(shinyWidgets)
 library(palmerpenguins)
 library(markdown)
+library(shinycssloaders)
 
 # ---- ggplot theme ----
 myCustomTheme <- function() {
